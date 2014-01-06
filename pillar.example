@@ -3,11 +3,28 @@ dnsmasq:
   dnsmasq_conf: salt://dnsmasq/files/dnsmasq.conf
   dnsmasq_conf_dir: salt://dnsmasq/files/dnsmasq.d
 
-  # Port to listen on. Setting this to zero completely disables DNS function,
-  # leaving only DHCP and/or TFTP.
-  port: 53
+  # Customize dnsmasq settings below - any valid dnsmasq configuration file
+  # parameter may be included. One setting per line.
+  #
+  # Note that on/off settings are handled differently. If the option does not
+  # appear in the config file, it is disabled. If it does appear, the option is
+  # enabled. To enable an option, set it to "True". For example:
+  #     domain-needed: True
+  #
+  # Options which may be listed multiple times in the configuration file
+  # (e.g., interface) must be passed as lists.
+  #
+  settings:
+    # Port to listen on. Setting this to zero completely disables DNS function,
+    # leaving only DHCP and/or TFTP.
+    port: 53
 
-  # Require full domain name? (including a dot and domain part)
-  domain_needed: False
-  # Never forward addresses in the non-routed address spaces?
-  bogus_priv: False
+    # Listen only on the eth1 and lo interfaces
+    interface:
+      - eth1
+      - lo
+
+    # Require full domain name? (including a dot and domain part)
+    domain-needed: True
+    # Never forward addresses in the non-routed address spaces?
+    bogus-priv: True

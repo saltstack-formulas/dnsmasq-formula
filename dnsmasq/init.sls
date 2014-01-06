@@ -1,8 +1,8 @@
 # Include :download:`map file <map.jinja>` of OS-specific package names and
 # file paths. Values can be overridden using Pillar.
-{% from "dnsmasq/map.jinja" import dnsmasq with context %}
+{%- from "dnsmasq/map.jinja" import dnsmasq with context %}
 
-{% if salt['pillar.get']('dnsmasq:dnsmasq_conf') %}
+{%- if salt['pillar.get']('dnsmasq:dnsmasq_conf') %}
 dnsmasq_conf:
   file.managed:
     - name: {{ dnsmasq.dnsmasq_conf }}
@@ -21,7 +21,7 @@ dnsmasq_conf_dir:
     - template: jinja
     - require:
       - pkg: dnsmasq
-{% endif %}
+{%- endif %}
 
 dnsmasq:
   pkg:
@@ -32,8 +32,8 @@ dnsmasq:
     - enable: True
     - require:
       - pkg: dnsmasq
-{% if salt['pillar.get']('dnsmasq:dnsmasq_conf') %}
+{%- if salt['pillar.get']('dnsmasq:dnsmasq_conf') %}
     - watch:
       - file: dnsmasq_conf
       - file: dnsmasq_conf_dir
-{% endif %}
+{%- endif %}
