@@ -1,0 +1,13 @@
+# Example settings for dnsmasq.
+dnsmasq:
+  dnsmasq_conf: salt://dnsmasq/files/dnsmasq.conf
+  dnsmasq_conf_dir: salt://dnsmasq/files/dnsmasq.d
+
+  # Port to listen on. Setting this to zero completely disables DNS function,
+  # leaving only DHCP and/or TFTP.
+  port: 53
+
+  # Require full domain name? (including a dot and domain part)
+  domain_needed: False
+  # Never forward addresses in the non-routed address spaces?
+  bogus_priv: False
