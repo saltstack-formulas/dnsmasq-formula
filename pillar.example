@@ -1,6 +1,7 @@
 # Example settings for dnsmasq.
 dnsmasq:
   dnsmasq_conf: salt://dnsmasq/files/dnsmasq.conf
+  dnsmasq_hosts: salt://dnsmasq/files/dnsmasq.hosts
   dnsmasq_conf_dir: salt://dnsmasq/files/dnsmasq.d
 
   # Customize dnsmasq settings below - any valid dnsmasq configuration file
@@ -28,3 +29,6 @@ dnsmasq:
     domain-needed: True
     # Never forward addresses in the non-routed address spaces?
     bogus-priv: True
+    hosts:
+      10.10.10.1: dns
+      10.10.10.2: vpn
