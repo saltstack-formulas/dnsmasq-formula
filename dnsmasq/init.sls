@@ -24,10 +24,8 @@ dnsmasq_conf_dir:
 {%- endif %}
 
 dnsmasq:
-  pkg:
-    - installed
-  service:
-    - running
+  pkg.installed: []
+  service.running:
     - name: {{ dnsmasq.service }}
     - enable: True
     - require:
