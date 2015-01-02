@@ -13,11 +13,28 @@ dnsmasq_conf:
     - template: jinja
     - require:
       - pkg: dnsmasq
+{%- if salt['pillar.get']('dnsmasq:dnsmasq_hosts') %}
+    - context:
+        addn_hosts: {{ dnsmasq.dnsmasq_hosts }}
+{%- endif %}
 
 dnsmasq_conf_dir:
   file.recurse:
     - name: {{ dnsmasq.dnsmasq_conf_dir }}
     - source: {{ salt['pillar.get']('dnsmasq:dnsmasq_conf_dir', 'salt://dnsmasq/files/dnsmasq.d') }}
+    - template: jinja
+    - require:
+      - pkg: dnsmasq
+{%- endif %}
+
+{%- if salt['pillar.get']('dnsmasq:dnsmasq_hosts') %}
+dnsmasq_hosts:
+  file.managed:
+    - name: {{ dnsmasq.dnsmasq_hosts }}
+    - source: {{ salt['pillar.get']('dnsmasq:dnsmasq_hosts', 'salt://dnsmasq/files/dnsmasq.hosts') }}
+    - user: root
+    - group: root
+    - mode: 644
     - template: jinja
     - require:
       - pkg: dnsmasq
@@ -34,4 +51,7 @@ dnsmasq:
     - watch:
       - file: dnsmasq_conf
       - file: dnsmasq_conf_dir
+{%- endif %}
+{%- if salt['pillar.get']('dnsmasq:dnsmasq_hosts') %}
+      - file: dnsmasq_hosts
 {%- endif %}
