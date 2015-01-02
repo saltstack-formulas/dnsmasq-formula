@@ -1,0 +1,9 @@
+{%- set dnsmasq = pillar.get('dnsmasq', {}) -%}
+{%- set hosts = dnsmasq.get('hosts', {}) -%}
+{%- set domain = dnsmasq.get('settings', {}).get('domain', '') -%}
+{%- if domain -%}{%- set domain = '.' + domain -%}{%- endif -%}
+{%- for ip in hosts.keys()|sort -%}
+{%- set alias = hosts[ip] -%}
+{%- set canonical = alias + domain -%}
+{{ ip }}	{{ canonical }}{% if domain %}	{{ alias }}{% endif %}
+{% endfor -%}
