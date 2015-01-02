@@ -1,6 +1,7 @@
 # Example settings for dnsmasq.
 dnsmasq:
   dnsmasq_conf: salt://dnsmasq/files/dnsmasq.conf
+  dnsmasq_hosts: salt://dnsmasq/files/dnsmasq.hosts
   dnsmasq_conf_dir: salt://dnsmasq/files/dnsmasq.d
 
   # Customize dnsmasq settings below - any valid dnsmasq configuration file
@@ -28,3 +29,17 @@ dnsmasq:
     domain-needed: True
     # Never forward addresses in the non-routed address spaces?
     bogus-priv: True
+
+  # Add extra entries to the DNS or override existing ones
+  # (e.g. for split horizon usage)
+  # The domain will automatically be appended if its part of a mapping
+  # It is recommended to group common domains in a mapping to prevent
+  # duplicated names in Pillar and to make it easier to
+  hosts:
+    example.com:
+      dns: 10.10.10.1
+      vpn: 10.10.10.2
+    example.net:
+      www: 10.10.10.3
+      mail: 10.10.10.4
+    test.example.org: 10.10.10.5
