@@ -38,6 +38,23 @@ dnsmasq_hosts:
     - template: jinja
     - require:
       - pkg: dnsmasq
+    - watch_in:
+      - service: dnsmasq
+{%- endif %}
+
+{%- if salt['pillar.get']('dnsmasq:dnsmasq_cnames') %}
+dnsmasq_cnames:
+  file.managed:
+    - name: {{ dnsmasq.dnsmasq_cnames }}
+    - source: {{ salt['pillar.get']('dnsmasq:dnsmasq_cnames', 'salt://dnsmasq/files/dnsmasq.cnames') }}
+    - user: root
+    - group: root
+    - mode: 644
+    - template: jinja
+    - require:
+      - pkg: dnsmasq
+    - watch_in:
+      - service: dnsmasq
 {%- endif %}
 
 dnsmasq:
@@ -51,7 +68,4 @@ dnsmasq:
     - watch:
       - file: dnsmasq_conf
       - file: dnsmasq_conf_dir
-{%- endif %}
-{%- if salt['pillar.get']('dnsmasq:dnsmasq_hosts') %}
-      - file: dnsmasq_hosts
 {%- endif %}

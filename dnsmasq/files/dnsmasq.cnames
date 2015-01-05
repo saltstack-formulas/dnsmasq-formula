@@ -1,0 +1,11 @@
+{%- set dnsmasq = pillar.get('dnsmasq', {}) -%}
+{%- set cnames = dnsmasq.get('cnames', {}) -%}
+{%- for cname, destinations in cnames|dictsort %}
+{%- if destinations is not mapping %}
+cname={{ cname }},{{ destinations }}
+{%- else %}
+{%- for hostname, destination in destinations|dictsort %}
+cname={{ hostname }}.{{ cname }},{{ destination }}
+{%- endfor -%}
+{%- endif %}
+{% endfor -%}
