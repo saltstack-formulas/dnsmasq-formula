@@ -2,6 +2,7 @@
 dnsmasq:
   dnsmasq_conf: salt://dnsmasq/files/dnsmasq.conf
   dnsmasq_hosts: salt://dnsmasq/files/dnsmasq.hosts
+  dnsmasq_cnames: salt://dnsmasq/files/dnsmasq.cnames
   dnsmasq_conf_dir: salt://dnsmasq/files/dnsmasq.d
 
   # Customize dnsmasq settings below - any valid dnsmasq configuration file
@@ -34,7 +35,7 @@ dnsmasq:
   # (e.g. for split horizon usage)
   # The domain will automatically be appended if its part of a mapping
   # It is recommended to group common domains in a mapping to prevent
-  # duplicated names in Pillar and to make it easier to
+  # duplicated names in Pillar and to make it easier to manage.
   hosts:
     example.com:
       dns: 10.10.10.1
@@ -43,3 +44,14 @@ dnsmasq:
       www: 10.10.10.3
       mail: 10.10.10.4
     test.example.org: 10.10.10.5
+
+  # CNAME handling
+  # Similarly to hosts this can deal with single and multiple entries in the
+  # form of source: target.
+  # Please note that this _only_ works for targets that are in the DHCP or
+  # /etc/hosts (Pillarized hosts included)
+  cnames:
+    vpn.example.biz: vpn.example.com
+    example.org:
+      vpn: vpn.example.com
+      mail: mail.example.net
