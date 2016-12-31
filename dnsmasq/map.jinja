@@ -20,9 +20,17 @@
       'dnsmasq_hosts': '/etc/dnsmasq.hosts',
       'dnsmasq_cnames': '/etc/dnsmasq.d/cnames.conf',
     },
+    'FreeBSD': {
+      'service': 'dnsmasq',
+      'dnsmasq_conf': '/usr/local/etc/dnsmasq.conf',
+      'dnsmasq_conf_dir': '/usr/local/etc/dnsmasq.d',
+      'dnsmasq_hosts': '/usr/local/etc/dnsmasq.hosts',
+      'dnsmasq_cnames': '/usr/local/etc/dnsmasq.d/cnames.conf',
+    },
 } %}
 
-{% if grains.get('saltversion', '').startswith('0.17') %}
+{% set saltversion=grains.get('saltversion, '') %}
+{% if saltversion.startswith('0.17') or saltversion.startswith('2') %} {# y3k problem #}
 {% set dnsmasq = salt['grains.filter_by'](map, merge=salt['pillar.get']('dnsmasq:lookup')) %}
 {% else %}
 {% set dnsmasq = map.get(grains.os_family) %}
