@@ -1,0 +1,5 @@
+{%- set dnsmasq = pillar.get('dnsmasq', {}) -%}
+{%- set addresses = dnsmasq.get('addresses', {}) -%}
+{%- for address, destination in addresses|dictsort -%}
+address=/{{ address }}/{{ destination }}
+{% endfor -%}
