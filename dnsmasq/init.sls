@@ -57,6 +57,21 @@ dnsmasq_cnames:
       - service: dnsmasq
 {%- endif %}
 
+{%- if salt['pillar.get']('dnsmasq:dnsmasq_addresses') %}
+dnsmasq_addresses:
+  file.managed:
+    - name: {{ dnsmasq.dnsmasq_addresses }}
+    - source: {{ salt['pillar.get']('dnsmasq:dnsmasq_addresses', 'salt://dnsmasq/files/dnsmasq.addresses') }}
+    - user: root
+    - group: {{ dnsmasq.group }}
+    - mode: 644
+    - template: jinja
+    - require:
+      - pkg: dnsmasq
+    - watch_in:
+      - service: dnsmasq
+{%- endif %}
+
 dnsmasq:
   pkg.installed: []
   service.running:
