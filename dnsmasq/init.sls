@@ -8,7 +8,7 @@ dnsmasq_conf:
     - name: {{ dnsmasq.dnsmasq_conf }}
     - source: {{ salt['pillar.get']('dnsmasq:dnsmasq_conf', 'salt://dnsmasq/files/dnsmasq.conf') }}
     - user: root
-    - group: root
+    - group: {{ dnsmasq.group }}
     - mode: 644
     - template: jinja
     - require:
@@ -33,7 +33,7 @@ dnsmasq_hosts:
     - name: {{ dnsmasq.dnsmasq_hosts }}
     - source: {{ salt['pillar.get']('dnsmasq:dnsmasq_hosts', 'salt://dnsmasq/files/dnsmasq.hosts') }}
     - user: root
-    - group: root
+    - group: {{ dnsmasq.group }}
     - mode: 644
     - template: jinja
     - require:
@@ -48,7 +48,7 @@ dnsmasq_cnames:
     - name: {{ dnsmasq.dnsmasq_cnames }}
     - source: {{ salt['pillar.get']('dnsmasq:dnsmasq_cnames', 'salt://dnsmasq/files/dnsmasq.cnames') }}
     - user: root
-    - group: root
+    - group: {{ dnsmasq.group }}
     - mode: 644
     - template: jinja
     - require:
@@ -63,7 +63,7 @@ dnsmasq_addresses:
     - name: {{ dnsmasq.dnsmasq_addresses }}
     - source: {{ salt['pillar.get']('dnsmasq:dnsmasq_addresses', 'salt://dnsmasq/files/dnsmasq.addresses') }}
     - user: root
-    - group: root
+    - group: {{ dnsmasq.group }}
     - mode: 644
     - template: jinja
     - require:

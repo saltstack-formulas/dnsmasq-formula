@@ -3,6 +3,7 @@ dnsmasq:
   dnsmasq_conf: salt://dnsmasq/files/dnsmasq.conf
   dnsmasq_hosts: salt://dnsmasq/files/dnsmasq.hosts
   dnsmasq_cnames: salt://dnsmasq/files/dnsmasq.cnames
+  dnsmasq_addresses: salt://dnsmasq/files/dnsmasq.addresses
   dnsmasq_conf_dir: salt://dnsmasq/files/dnsmasq.d
 
   # Customize dnsmasq settings below - any valid dnsmasq configuration file
@@ -55,3 +56,8 @@ dnsmasq:
     example.org:
       vpn: vpn.example.com
       mail: mail.example.net
+
+  # Add domains which you want to force to an IP address here.
+  addresses:
+    double-click.net: 127.0.0.1
+    www.thekelleys.org.uk: "fe80::20d:60ff:fe36:f83"
