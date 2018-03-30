@@ -1,0 +1,8 @@
+README.html
+.cache/
+__pycache__/
+test/.vagrant/
+test/root/etc/salt/minion.d/_schedule.conf
+test/root/etc/salt/minion_id
+test/root/etc/salt/pki/
+

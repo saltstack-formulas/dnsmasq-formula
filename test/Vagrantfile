@@ -1,0 +1,51 @@
+Vagrant.require_version ">= 1.9.7"
+
+# Avoid problems with SSH due to host locale not present on guest.
+ENV["LC_ALL"] = "en_US.UTF-8"
+
+# Name prefix given to VMs in VirtualBox GUI
+PROJECT = "dnsmasq_formula"
+
+MASTER_IPV4 = "192.168.50.10"
+MASTER_HOSTNAME = "saltmaster"
+
+Vagrant.configure("2") do |config|
+    # Name given to the VM; used with vagrant command-line
+    config.vm.define MASTER_HOSTNAME
+    config.vm.box = "bento/ubuntu-16.04"
+    config.vm.hostname = MASTER_HOSTNAME
+    config.vm.network "private_network", ip: "#{MASTER_IPV4}"
+
+    # Disable the default `/vagrant` share
+    config.vm.synced_folder ".", "/vagrant", disabled: true
+    config.vm.synced_folder "./root/srv/salt",       "/srv/salt"
+    config.vm.synced_folder "./root/srv/pillar",     "/srv/pillar"
+    config.vm.synced_folder "../../dnsmasq-formula", "/srv/formulas/dnsmasq-formula"
+    config.vm.synced_folder "./root/etc/salt",       "/etc/salt"
+    config.vm.synced_folder "./test",                "/home/vagrant/test"
+
+    # Work around the fact that the synced folders are mounted way too late
+    # in the boot process and the salt minion doesn't find the correct configuration.
+    config.vm.provision "shell", run: "always", inline: "systemctl restart salt-master"
+    config.vm.provision "shell", run: "always", inline: "systemctl restart salt-minion"
+
+    config.vm.provider "virtualbox" do |vb|
+        vb.memory = 1024
+        # Optimize file storage usage and enable super fast cloning
+        vb.linked_clone = true
+        # DNS: adapt to the host changing DHCP address (eg laptop).
+        vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        # Name given to the VM, visible from Virtualbox GUI.
+        vb.name = PROJECT + "_" + MASTER_HOSTNAME
+    end
+
+    config.vm.provision :salt do |salt|
+        salt.install_master = true
+        salt.install_type = "git"
+        salt.install_args = "v2017.7.0"
+        salt.verbose = true
+        salt.colorize = true
+        # -c: temporary configuration directory
+        salt.bootstrap_options = "-c /tmp"
+    end
+end
