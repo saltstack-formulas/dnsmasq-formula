@@ -40,6 +40,10 @@ Remove the dnsmasq package, and stop the associated dnsmasq service.
       cloud.com:
         server01: 1.0.0.1
         server42: 1.0.0.42
+      available.com:
+        - 1.1.1.1
+        - 1.1.1.2
+        - 1.1.1.3
 
 Additional resources
 ======================
