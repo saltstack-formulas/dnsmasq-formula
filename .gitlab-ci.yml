@@ -49,7 +49,7 @@ variables:
 ###############################################################################
 # `lint` stage: `commitlint`, `pre-commit` & `rubocop` (latest, failure allowed)
 ###############################################################################
-#commitlint:
+# commitlint:
 #  stage: *stage_lint
 #  image: *image_commitlint
 #  script:
