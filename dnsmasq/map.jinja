@@ -1,5 +1,6 @@
 {% set map = {
     'Debian': {
+        'package': 'dnsmasq',
         'service': 'dnsmasq',
         'dnsmasq_conf': '/etc/dnsmasq.conf',
         'dnsmasq_conf_dir': '/etc/dnsmasq.d',
@@ -9,6 +10,7 @@
         'group': 'root',
     },
     'RedHat': {
+        'package': 'dnsmasq',
         'service': 'dnsmasq',
         'dnsmasq_conf': '/etc/dnsmasq.conf',
         'dnsmasq_conf_dir': '/etc/dnsmasq.d',
@@ -18,6 +20,7 @@
         'group': 'root',
     },
     'Suse': {
+        'package': 'dnsmasq',
         'service': 'dnsmasq',
         'dnsmasq_conf': '/etc/dnsmasq.conf',
         'dnsmasq_conf_dir': '/etc/dnsmasq.d',
@@ -27,6 +30,17 @@
         'group': 'root',
     },
     'Arch': {
+        'package': 'dnsmasq',
+        'service': 'dnsmasq',
+        'dnsmasq_conf': '/etc/dnsmasq.conf',
+        'dnsmasq_conf_dir': '/etc/dnsmasq.d',
+        'dnsmasq_hosts': '/etc/dnsmasq.hosts',
+        'dnsmasq_cnames': '/etc/dnsmasq.d/cnames.conf',
+        'dnsmasq_addresses': '/etc/dnsmasq.d/addresses.conf',
+        'group': 'root',
+    },
+    'Gentoo': {
+        'package': 'net-dns/dnsmasq',
         'service': 'dnsmasq',
         'dnsmasq_conf': '/etc/dnsmasq.conf',
         'dnsmasq_conf_dir': '/etc/dnsmasq.d',
@@ -36,6 +50,7 @@
         'group': 'root',
     },
     'FreeBSD': {
+        'package': 'dnsmasq',
         'service': 'dnsmasq',
         'dnsmasq_conf': '/usr/local/etc/dnsmasq.conf',
         'dnsmasq_conf_dir': '/usr/local/etc/dnsmasq.d',
