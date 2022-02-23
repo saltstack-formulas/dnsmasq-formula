@@ -73,7 +73,8 @@ dnsmasq_addresses:
 {%- endif %}
 
 dnsmasq:
-  pkg.installed: []
+  pkg.installed:
+    - name: {{ dnsmasq.package }}
   service.running:
     - name: {{ dnsmasq.service }}
     - enable: True
