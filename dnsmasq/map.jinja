@@ -61,9 +61,4 @@
     },
 } %}
 
-{% set saltversion=grains.get('saltversion', '') %}
-{% if saltversion.startswith('0.17') or saltversion.startswith('2') %} {# y3k problem #}
 {% set dnsmasq = salt['grains.filter_by'](map, merge=salt['pillar.get']('dnsmasq:lookup')) %}
-{% else %}
-{% set dnsmasq = map.get(grains.os_family) %}
-{% endif %}
