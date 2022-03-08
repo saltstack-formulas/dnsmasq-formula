@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/saltstack-formulas/dnsmasq-formula/compare/v0.2.0...v0.2.1) (2022-03-08)
+
+
+### Tests
+
+* add some Inspec tests ([9082d13](https://github.com/saltstack-formulas/dnsmasq-formula/commit/9082d13de1251f6afeff4d30b502ee5e817108e1))
+
 # [0.2.0](https://github.com/saltstack-formulas/dnsmasq-formula/compare/v0.1.0...v0.2.0) (2022-02-23)
 
 
